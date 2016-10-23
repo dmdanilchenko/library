@@ -11,6 +11,19 @@ class Library
     loadData (dataFileName)
   end
 
+
+  def get_best_reader
+    @orders.group_by { |orders| orders[:reader] }.values.max_by(&:size).first[:reader]
+  end
+
+  def get_bestseller
+    @orders.group_by { |orders| orders[:book] }.values.max_by(&:size).first[:book]
+  end
+
+  def get_popularity(size)
+    @orders.group_by { |orders| orders[:book] }.map{ |book, orders| [book, orders.size] }.max_by(size){ |book, count| count }
+  end
+
   private
   def loadData(filename)
 
@@ -36,18 +49,6 @@ class Library
 
     end
 
-  end
-
-  def get_best_reader
-    @orders.group_by(&:reader).values.max_by(&:size).first.reader
-  end
-
-  def get_bestseller
-    @orders.group_by(&:book).values.max_by(&:size).first.book
-  end
-
-  def get_bestsellers_with_popularity(size)
-    @orders.group_by(&:book).map { |book, orders| [book, orders.size] }.max_by(size) { |_book, order_count| order_count }
   end
 
 end

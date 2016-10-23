@@ -40,7 +40,6 @@ Order.new('Fight Club','Anya','2016-11-22')
 
 # init Library
 library =  Library.new('data.csv')
-
-library.get_best_reader
-library.get_bestseller
-library.get_bestsellers_with_popularity(3)
+puts "the best reader is: #{library.get_best_reader}"
+puts "the best book is : #{library.get_bestseller}"
+puts "the most popular books are : #{library.get_popularity(3)}"
